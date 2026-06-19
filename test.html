@@ -6,327 +6,62 @@
 <title>Kaizen Board</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    background:#2c323a;
-    padding:20px;
-}
-
-.container{
-    background:linear-gradient(90deg,#000d2a,#001338);
-    padding:25px;
-    border-radius:4px;
-}
-
-.title{
-    color:#fff;
-    font-size:48px;
-    font-weight:700;
-}
-
-.subtitle{
-    color:#c6ced8;
-    font-size:20px;
-    margin-top:10px;
-    margin-bottom:25px;
-}
-
-.toolbar{
-    display:flex;
-    gap:12px;
-    margin-bottom:20px;
-}
-
-.search{
-    flex:1;
-}
-
-.search input,
-.toolbar select{
-    width:100%;
-    height:42px;
-    background:#222831;
-    border:1px solid #4a5568;
-    color:white;
-    border-radius:4px;
-    padding:0 12px;
-}
-
-.toolbar select{
-    width:180px;
-}
-
-.add-btn{
-    background:#0891b2;
-    color:white;
-    border:none;
-    border-radius:5px;
-    padding:0 20px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.add-btn:hover{
-    background:#0e7490;
-}
-
-.board{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-}
-
-
-.column{
-    background:#20252c;
-    border:1px solid #46505b;
-    border-radius:10px;
-    overflow:hidden;
-    height:700px;
-    display:flex;
-    flex-direction:column;
-}
-
-
-.column-header{
-    background:#1d2c37;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:10;
-    flex-shrink:0;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.count{
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    background:#0891b2;
-    color:white;
-    font-weight:bold;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.column-title{
-    color:white;
-    font-size:18px;
-    font-weight:600;
-}
-
-
-.cards{
-    padding:15px;
-    flex:1;
-    overflow-y:auto;
-}
-
-.cards::-webkit-scrollbar{
-    width:8px;
-}
-
-.cards::-webkit-scrollbar-track{
-    background:#1d2c37;
-}
-
-.cards::-webkit-scrollbar-thumb{
-    background:#0891b2;
-    border-radius:10px;
-}
-
-.cards::-webkit-scrollbar-thumb:hover{
-    background:#0ea5c6;
-}
-
-.card{
-    position:relative;
-    background:#2d3640;
-    color:white;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:8px;
-    border-left:4px solid #0891b2;
-    max-height:250px;
-    overflow-y:auto;
-}
-
-.card::-webkit-scrollbar{
-    width:6px;
-}
-
-.card::-webkit-scrollbar-track{
-    background:#20252c;
-}
-
-.card::-webkit-scrollbar-thumb{
-    background:#0891b2;
-    border-radius:10px;
-}
-
-.card::-webkit-scrollbar-thumb:hover{
-    background:#0ea5c6;
-}
-
-
-.card h4{
-    margin-bottom:8px;
-}
-
-.card p{
-    color:#d6dde5;
-    font-size:14px;
-    margin-bottom:8px;
-}
-
-.attachment{
-    color:#7dd3fc;
-    font-size:12px;
-}
-
-.edit-btn{
-    position:absolute;
-    top:10px;
-    right:10px;
-    width:32px;
-    height:32px;
-    border:none;
-    border-radius:50%;
-    background:#f59e0b;
-    color:white;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:16px;
-    transition:.2s;
-}
-
-.edit-btn:hover{
-    background:#d97706;
-    transform:scale(1.1);
-}
-
-.edit-btn:hover{
-    background:#d97706;
-}
-
-/* Modal */
-
-.modal{
-    display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.75);
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-}
-
-.modal-content{
-    width:650px;
-    max-width:95%;
-    background:#20252c;
-    border-radius:10px;
-    overflow:hidden;
-}
-
-.modal-header{
-    background:#1d2c37;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.modal-header h2{
-    color:white;
-}
-
-.close{
-    color:white;
-    cursor:pointer;
-    font-size:28px;
-}
-
-.form-group{
-    padding:15px 25px;
-}
-
-.form-group label{
-    display:block;
-    color:white;
-    margin-bottom:8px;
-}
-
-.form-group input[type="text"],
-.form-group textarea{
-    width:100%;
-    padding:10px;
-    border:1px solid #46505b;
-    background:#2d3640;
-    color:white;
-    border-radius:5px;
-}
-
-.form-group input[type="file"]{
-    color:white;
-}
-
-#fileError{
-    color:#f87171;
-}
-
-.modal-footer{
-    padding:20px;
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-}
-
-.cancel-btn{
-    background:#6b7280;
-    color:white;
-    border:none;
-    padding:10px 18px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.save-btn{
-    background:#0891b2;
-    color:white;
-    border:none;
-    padding:10px 18px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-@media(max-width:1000px){
-    .board{
-        grid-template-columns:1fr;
-    }
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:#161b22;color:#e2e8f0;min-height:100vh;padding:20px;}
+button,input,select,textarea{font:inherit;color:inherit;}
+.container{max-width:1300px;margin:0 auto;background:linear-gradient(135deg,#091324,#0f1b2e);padding:28px;border-radius:18px;box-shadow:0 30px 70px rgba(0,0,0,.45);}
+.title{color:#f8fafc;font-size:clamp(2rem,2.75vw,3.5rem);font-weight:800;line-height:1.05;}
+.subtitle{color:#cbd5e1;font-size:1.05rem;margin-top:12px;margin-bottom:26px;max-width:760px;line-height:1.65;}
+.toolbar{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px;}
+.search{flex:1;min-width:220px;}
+.filter{width:220px;min-width:180px;}
+.search input,.toolbar select,.form-group input[type="text"],.form-group textarea,.form-group select{width:100%;height:44px;background:#111826;border:1px solid #334155;border-radius:12px;color:#e2e8f0;padding:0 14px;transition:all .2s ease;}
+.search input:focus,.toolbar select:focus,.form-group input[type="text"]:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,.15);}
+.search input::placeholder{color:#94a3b8;}
+.add-btn{background:#22d3ee;color:#0f172a;border:none;border-radius:12px;padding:0 24px;cursor:pointer;font-weight:700;transition:transform .2s ease,background .2s ease;height:44px;white-space:nowrap;}
+.add-btn:hover{background:#38bdf8;transform:translateY(-1px);}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.column{background:#111827;border:1px solid #334155;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-height:580px;}
+.column-header{background:#0f172a;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5;border-bottom:1px solid #1f2937;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.count{min-width:42px;height:42px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(14,165,233,.18);}
+.column-title{color:#e2e8f0;font-size:1.05rem;font-weight:700;}
+.cards{padding:18px;flex:1;overflow-y:auto;min-height:220px;}
+.cards.empty::before{content:'No ideas to show.';display:block;color:#94a3b8;font-size:.98rem;padding:24px 0;text-align:center;}
+.card{position:relative;background:#0f172a;color:#e2e8f0;padding:18px;border-radius:16px;margin-bottom:16px;border:1px solid #1e293b;box-shadow:0 12px 30px rgba(15,23,42,.12);transition:transform .2s ease,box-shadow .2s ease;}
+.card:hover{transform:translateY(-1px);box-shadow:0 20px 45px rgba(15,23,42,.2);}
+.card h4{margin-bottom:10px;font-size:1.1rem;}
+.card p{color:#cbd5e1;font-size:.95rem;line-height:1.6;margin-bottom:12px;white-space:pre-line;}
+.meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px;font-size:.9rem;color:#94a3b8;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.12);color:#7dd3fc;}
+.attachment{color:#7dd3fc;font-size:.92rem;}
+.card-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.card-actions button{border:none;border-radius:10px;padding:9px 14px;font-weight:700;cursor:pointer;transition:transform .2s ease,background .2s ease;}
+.approve-btn{background:#059669;color:#ecfeff;}
+.approve-btn:hover{background:#10b981;transform:translateY(-1px);}
+.edit-btn{background:#f59e0b;color:#0f172a;min-width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,background .2s ease;}
+.edit-btn:hover{background:#fbbf24;transform:scale(1.05);}
+.modal{display:none;position:fixed;inset:0;background:rgba(5,5,27,.85);backdrop-filter:blur(8px);justify-content:center;align-items:center;z-index:999;}
+.modal.active{display:flex;}
+.modal-content{width:680px;max-width:95%;background:#111827;border:1px solid #334155;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);}
+.modal-header{background:#0f172a;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1f2937;}
+.modal-header h2{color:#f8fafc;font-size:1.45rem;}
+.close{color:#94a3b8;cursor:pointer;font-size:32px;line-height:1;}
+.form-group{padding:18px 24px;}
+.form-group label{display:block;color:#e2e8f0;margin-bottom:10px;font-weight:600;}
+.form-group input[type="text"],.form-group textarea,.form-group select{height:46px;}
+.form-group textarea{min-height:140px;resize:vertical;padding-top:12px;}
+.form-group input[type="file"]{color:#e2e8f0;}
+#fileError{display:block;margin-top:8px;color:#fb7185;font-size:.92rem;}
+.modal-footer{padding:18px 24px 24px;display:flex;justify-content:flex-end;gap:12px;}
+.cancel-btn,.save-btn{border:none;border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:700;}
+.cancel-btn{background:#334155;color:#e2e8f0;}
+.cancel-btn:hover{background:#475569;}
+.save-btn{background:#0ea5e9;color:#0f172a;}
+.save-btn:hover{background:#38bdf8;}
+.hidden-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+@media(max-width:1024px){.board{grid-template-columns:1fr;}.toolbar{justify-content:stretch;}.filter{width:100%;}}
+@media(max-width:640px){.modal-content{padding:0;}.modal-header{padding:16px 18px;}.form-group{padding:16px 18px;}.save-btn,.cancel-btn{width:100%;}.modal-footer{flex-direction:column;align-items:stretch;}}
 </style>
 </head>
 <body>
@@ -342,16 +77,20 @@ body{
     <div class="toolbar">
 
         <div class="search">
-            <input type="text" placeholder="Search...">
+            <label class="hidden-label" for="searchInput">Search ideas</label>
+            <input id="searchInput" type="text" placeholder="Search ideas...">
         </div>
 
-        <select>
-            <option>All Branches</option>
-            <option>Branch A</option>
-            <option>Branch B</option>
-        </select>
+        <div class="filter">
+            <label class="hidden-label" for="branchFilter">Filter by branch</label>
+            <select id="branchFilter">
+                <option value="all">All Branches</option>
+                <option value="Branch A">Branch A</option>
+                <option value="Branch B">Branch B</option>
+            </select>
+        </div>
 
-        <button class="add-btn" onclick="openModal()">
+        <button type="button" class="add-btn" onclick="openModal()">
             + New Idea
         </button>
 
@@ -380,12 +119,12 @@ body{
 
             <div class="column-header">
                 <div class="header-left">
-                    <div class="count">0</div>
+                    <div class="count" id="approvedCount">0</div>
                     <div class="column-title">Approved</div>
                 </div>
             </div>
 
-            <div class="cards"></div>
+            <div class="cards" id="approvedCards"></div>
 
         </div>
 
@@ -410,13 +149,13 @@ body{
 
 <!-- Modal -->
 
-<div id="ideaModal" class="modal">
+<div id="ideaModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
 
     <div class="modal-content">
 
         <div class="modal-header">
-            <h2>Create Kaizen Idea</h2>
-            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Create Kaizen Idea</h2>
+            <button type="button" class="close" onclick="closeModal()" aria-label="Close modal">&times;</button>
         </div>
 
         <form id="ideaForm">
@@ -432,13 +171,20 @@ body{
             </div>
 
             <div class="form-group">
-                <label>Attachment (Max 10MB)</label>
+                <label for="ideaBranch">Branch</label>
+                <select id="ideaBranch">
+                    <option value="Branch A">Branch A</option>
+                    <option value="Branch B">Branch B</option>
+                    <option value="Branch C">Branch C</option>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label>Attachment (Max 10MB)</label>
                 <input
                     type="file"
                     id="ideaAttachment"
                     accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.xls,.xlsx">
-
                 <small id="fileError"></small>
             </div>
 
@@ -466,189 +212,228 @@ body{
 </div>
 
 <script>
+const ideaModal = document.getElementById('ideaModal');
+const ideaForm = document.getElementById('ideaForm');
+const ideaTitle = document.getElementById('ideaTitle');
+const ideaDescription = document.getElementById('ideaDescription');
+const ideaAttachment = document.getElementById('ideaAttachment');
+const ideaBranch = document.getElementById('ideaBranch');
+const editingId = document.getElementById('editingId');
+const fileError = document.getElementById('fileError');
+const searchInput = document.getElementById('searchInput');
+const branchFilter = document.getElementById('branchFilter');
+const ideasCount = document.getElementById('ideasCount');
+const approvedCount = document.getElementById('approvedCount');
+const myIdeasCount = document.getElementById('myIdeasCount');
+const ideasCards = document.getElementById('ideasCards');
+const approvedCards = document.getElementById('approvedCards');
+const myIdeasCards = document.getElementById('myIdeasCards');
+const STORAGE_KEY = 'kaizenBoardIdeas';
+let ideas = loadIdeas();
 
-function openModal(){
-    document.getElementById('ideaModal').style.display='flex';
+function loadIdeas() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
 }
 
-function closeModal(){
-
-    document.getElementById('ideaModal').style.display='none';
-
-    document.getElementById('ideaForm').reset();
-
-    document.getElementById('editingId').value='';
-
-    document.getElementById('fileError').innerText='';
+function saveIdeas() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(ideas));
 }
 
-window.onclick=function(event){
+function openModal() {
+  ideaModal.classList.add('active');
+  ideaModal.setAttribute('aria-hidden', 'false');
+  ideaTitle.focus();
+}
 
-    const modal=document.getElementById('ideaModal');
+function closeModal() {
+  ideaModal.classList.remove('active');
+  ideaModal.setAttribute('aria-hidden', 'true');
+  ideaForm.reset();
+  editingId.value = '';
+  fileError.innerText = '';
+}
 
-    if(event.target===modal){
-        closeModal();
-    }
-};
+function updateCounters() {
+  ideasCount.innerText = ideas.length;
+  approvedCount.innerText = ideas.filter(idea => idea.status === 'approved').length;
+  myIdeasCount.innerText = ideas.length;
+}
 
-document.getElementById('ideaAttachment')
-.addEventListener('change',function(){
+function getFilteredIdeas() {
+  const query = searchInput.value.toLowerCase().trim();
+  const branch = branchFilter.value;
+  return ideas.filter(idea => {
+    const matchesText =
+      idea.title.toLowerCase().includes(query) ||
+      idea.description.toLowerCase().includes(query) ||
+      idea.branch.toLowerCase().includes(query);
+    const matchesBranch = branch === 'all' || idea.branch === branch;
+    return matchesText && matchesBranch;
+  });
+}
 
-    const file=this.files[0];
+function renderBoard() {
+  const filtered = getFilteredIdeas();
+  ideasCards.innerHTML = '';
+  approvedCards.innerHTML = '';
+  myIdeasCards.innerHTML = '';
 
-    if(!file) return;
+  const pendingIdeas = filtered.filter(idea => idea.status !== 'approved');
+  const approvedIdeas = filtered.filter(idea => idea.status === 'approved');
+  const myIdeas = filtered;
 
-    const maxSize=10*1024*1024;
+  ideasCards.classList.toggle('empty', pendingIdeas.length === 0);
+  approvedCards.classList.toggle('empty', approvedIdeas.length === 0);
+  myIdeasCards.classList.toggle('empty', myIdeas.length === 0);
 
-    if(file.size>maxSize){
+  pendingIdeas.forEach(idea => ideasCards.appendChild(createCard(idea, { showApprove: idea.status !== 'approved' })));
+  approvedIdeas.forEach(idea => approvedCards.appendChild(createCard(idea, { showApproved: true })));
+  myIdeas.forEach(idea => myIdeasCards.appendChild(createCard(idea, { showEdit: true, showApproved: idea.status === 'approved' })));
 
-        document.getElementById('fileError').innerText=
-        'File exceeds 10MB limit';
+  updateCounters();
+}
 
-        this.value='';
+function createCard(idea, options = {}) {
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.dataset.id = idea.id;
 
-    }else{
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.innerHTML = `
+    <span class="badge">🏷 ${idea.branch}</span>
+    ${idea.status === 'approved' ? '<span class="badge">✅ Approved</span>' : ''}
+    ${idea.fileName ? `<span class="badge">📎 ${idea.fileName}</span>` : ''}
+  `;
 
-        document.getElementById('fileError').innerText='';
-    }
+  const title = document.createElement('h4');
+  title.className = 'idea-title';
+  title.innerText = idea.title;
+
+  const description = document.createElement('p');
+  description.className = 'idea-desc';
+  description.innerText = idea.description;
+
+  const actions = document.createElement('div');
+  actions.className = 'card-actions';
+
+  if (options.showApprove) {
+    const approveBtn = document.createElement('button');
+    approveBtn.type = 'button';
+    approveBtn.className = 'approve-btn';
+    approveBtn.innerText = 'Approve';
+    approveBtn.onclick = () => approveIdea(idea.id);
+    actions.appendChild(approveBtn);
+  }
+
+  if (options.showEdit) {
+    const editBtn = document.createElement('button');
+    editBtn.type = 'button';
+    editBtn.className = 'edit-btn';
+    editBtn.title = 'Edit idea';
+    editBtn.innerText = '✏️';
+    editBtn.onclick = () => editIdea(idea.id);
+    actions.appendChild(editBtn);
+  }
+
+  card.appendChild(meta);
+  card.appendChild(title);
+  card.appendChild(description);
+  if (actions.childElementCount) card.appendChild(actions);
+  return card;
+}
+
+function approveIdea(id) {
+  const idea = ideas.find(item => item.id === id);
+  if (!idea || idea.status === 'approved') return;
+  idea.status = 'approved';
+  saveIdeas();
+  renderBoard();
+}
+
+function editIdea(id) {
+  const idea = ideas.find(item => item.id === id);
+  if (!idea) return;
+
+  ideaTitle.value = idea.title;
+  ideaDescription.value = idea.description;
+  ideaBranch.value = idea.branch;
+  editingId.value = idea.id;
+  openModal();
+}
+
+ideaAttachment.addEventListener('change', function () {
+  const file = this.files[0];
+  const maxSize = 10 * 1024 * 1024;
+  if (!file) {
+    fileError.innerText = '';
+    return;
+  }
+
+  if (file.size > maxSize) {
+    fileError.innerText = 'File exceeds 10MB limit';
+    this.value = '';
+  } else {
+    fileError.innerText = '';
+  }
 });
 
-document.getElementById('ideaForm')
-.addEventListener('submit',function(e){
+ideaForm.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-    e.preventDefault();
+  const title = ideaTitle.value.trim();
+  const description = ideaDescription.value.trim();
+  const branch = ideaBranch.value;
+  const file = ideaAttachment.files[0];
+  const fileName = file ? file.name : '';
 
-    const title=
-    document.getElementById('ideaTitle').value;
+  if (!title || !description) return;
 
-    const desc=
-    document.getElementById('ideaDescription').value;
-
-    const file=
-    document.getElementById('ideaAttachment').files[0];
-
-    const editingId=
-    document.getElementById('editingId').value;
-
-    if(editingId){
-
-        document
-        .querySelectorAll(`[data-id="${editingId}"]`)
-        .forEach(card=>{
-
-            card.querySelector('.idea-title').innerText=title;
-            card.querySelector('.idea-desc').innerText=desc;
-
-            if(file){
-
-                let attachment=
-                card.querySelector('.attachment');
-
-                if(!attachment){
-
-                    attachment=
-                    document.createElement('div');
-
-                    attachment.className='attachment';
-
-                    card.appendChild(attachment);
-                }
-
-                attachment.innerHTML='📎 '+file.name;
-            }
-
-        });
-
-    }else{
-
-        const id=Date.now();
-
-        createCard(
-            'ideasCards',
-            id,
-            title,
-            desc,
-            file,
-            false
-        );
-
-        createCard(
-            'myIdeasCards',
-            id,
-            title,
-            desc,
-            file,
-            true
-        );
+  if (editingId.value) {
+    const idea = ideas.find(item => item.id === editingId.value);
+    if (idea) {
+      idea.title = title;
+      idea.description = description;
+      idea.branch = branch;
+      if (fileName) idea.fileName = fileName;
+      idea.updatedAt = new Date().toISOString();
     }
+  } else {
+    ideas.unshift({
+      id: Date.now().toString(),
+      title,
+      description,
+      branch,
+      fileName,
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    });
+  }
 
-    updateCounters();
+  saveIdeas();
+  renderBoard();
+  closeModal();
+});
 
+searchInput.addEventListener('input', renderBoard);
+branchFilter.addEventListener('change', renderBoard);
+
+window.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && ideaModal.classList.contains('active')) {
     closeModal();
-
+  }
 });
 
-function createCard(container,id,title,desc,file,showEdit){
+window.addEventListener('click', function (event) {
+  if (event.target === ideaModal) closeModal();
+});
 
-    const card=document.createElement('div');
-
-    card.className='card';
-
-    card.setAttribute('data-id',id);
-
-    card.innerHTML=`
-        <h4 class="idea-title">${title}</h4>
-        <p class="idea-desc">${desc}</p>
-
-        ${file ? `
-        <div class="attachment">
-            📎 ${file.name}
-        </div>
-        ` : ''}
-
-       ${showEdit ? `
-<button
-    class="edit-btn"
-    onclick="editIdea('${id}')"
-    title="Edit Idea">
-    ✏️
-</button>
-` : ''}
-    `;
-
-    document.getElementById(container)
-    .appendChild(card);
-}
-
-function editIdea(id){
-
-    const card=
-    document.querySelector(
-        '#myIdeasCards .card[data-id="'+id+'"]'
-    );
-
-    document.getElementById('ideaTitle').value=
-    card.querySelector('.idea-title').innerText;
-
-    document.getElementById('ideaDescription').value=
-    card.querySelector('.idea-desc').innerText;
-
-    document.getElementById('editingId').value=id;
-
-    openModal();
-}
-
-function updateCounters(){
-
-    document.getElementById('ideasCount').innerText=
-    document.querySelectorAll('#ideasCards .card').length;
-
-    document.getElementById('myIdeasCount').innerText=
-    document.querySelectorAll('#myIdeasCards .card').length;
-}
-
-updateCounters();
-
+renderBoard();
 </script>
 
 </body>
